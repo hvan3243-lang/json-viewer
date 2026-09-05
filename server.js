@@ -43,9 +43,13 @@ app.get("/api/proxy", async (req, res) => {
     res.set("cache-control", "no-store");
     return res.send(body);
   } catch (error) {
-    const message = error.name === "AbortError"
-      ? "API không phản hồi trong 30 giây."
-      : `Không thể kết nối API: ${error.message}`;
+    const causeCode = error.cause && error.cause.code;
+    const causeMessage = error.cause && error.cause.message;
+    let detail = causeCode || causeMessage || error.message;
+    if (error.name === "AbortError") {
+      detail = "timeout sau 30 giây";
+    }
+    const message = `Không thể kết nối API ${targetUrl.hostname}: ${detail}`;
     return res.status(502).json({ message });
   } finally {
     clearTimeout(timeout);
