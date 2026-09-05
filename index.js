@@ -15208,8 +15208,8 @@ var hi = {
     },
     {
         id: `Nhiet-Doi`,
-        label: `Nhịệt Đới`,
-        url: `http://10.0.0.27:2301`
+        label: `Nhiệt Đới`,
+        url: `http://115.79.55.146:2301`
     },
     {
         id: `Dong-Thap`,
